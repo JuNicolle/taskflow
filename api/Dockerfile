@@ -21,7 +21,10 @@ COPY package.json package-lock.json ./
 
 # `npm ci` : installation stricte d'après le package-lock.json (reproductible).
 # `--omit=dev` : on n'installe pas ESLint, Vitest... inutiles en production.
-RUN npm ci --omit=dev
+# npm n'est utile qu'au build : on le retire de l'image de production (sa dépendance
+# embarquée `tar` portait une CVE CRITICAL, et un attaquant n'a pas à disposer de npm).
+RUN npm ci --omit=dev \
+ && rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 
 # Maintenant seulement, on copie le code source (ce qui change souvent).
 COPY src ./src
