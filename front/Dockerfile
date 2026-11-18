@@ -20,7 +20,7 @@ COPY . .
 RUN npm run build
 
 # ---------- Étape 2 : servir le site avec Nginx -----------------------------
-FROM nginx:1.29-alpine
+FROM nginx:1.31-alpine
 # Correctifs Alpine publiés mais pas encore dans l'image officielle (brotli, openssl...)
 RUN apk upgrade --no-cache
 
