@@ -24,3 +24,13 @@ backups/
 *.pem
 *.key
 *.crt
+
+# OpenTofu / Terraform : le state contient des secrets (mot de passe de la base) et vit
+# dans $STAGING_DIR ; .terraform/ = providers téléchargés par `tofu init`.
+# Le fichier .terraform.lock.hcl, lui, EST versionné.
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+terraform.tfvars
